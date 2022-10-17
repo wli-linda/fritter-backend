@@ -175,6 +175,8 @@ The following api routes have already been implemented for you (**Make sure to d
 
 This renders the `index.html` file that will be used to interact with the backend
 
+### Freet Concept
+
 #### `GET /api/freets` - Get all the freets
 
 **Returns**
@@ -239,6 +241,8 @@ This renders the `index.html` file that will be used to interact with the backen
 - `403` if the user is not the author of the freet
 - `400` if the new freet content is empty or a stream of empty spaces
 - `413` if the new freet content is more than 140 characters long
+
+### User Concept
 
 #### `POST /api/users/session` - Sign in user
 
@@ -313,3 +317,220 @@ This renders the `index.html` file that will be used to interact with the backen
 **Throws**
 
 - `403` if the user is not logged in
+
+### Follow Concept
+
+#### `GET /api/followers/:userId1?/:userId2?` - Checks if User 1 follows User 2
+
+**Returns**
+
+- An object with the status of following
+
+**Throws**
+
+- `404` if `userId1` or `userId2` is invalid
+
+#### `POST /api/followers/:userId?` - Follow another user
+
+**Returns**
+
+- A success message
+- An object with details of the following information created with date
+
+**Throws**
+
+- `403` if the user is not logged in
+- `404` if `userId` is invalid
+
+#### `DELETE /api/followers/:userId?` - Unfollow another user
+
+**Returns**
+
+- A success message
+
+**Throws**
+
+- `403` if the user is not logged in
+- `412` if user doens't currently follow the other user
+- `404` if `userId` is invalid
+
+#### `GET /api/followers/posts` - Retrieve all posts from user's followings
+
+**Returns**
+
+- An object with details of all the posts and associated users sorted in descending order by date modified of posts
+
+**Throws**
+
+- `403` if the user is not logged in
+
+### Comment Concept
+
+#### `GET /api/comments?post=POST_ID` - Get all the comments of a post
+
+**Returns**
+
+- An array of all comments sorted in descending order by date created
+
+**Throws**
+
+- `400` if `post` is not given
+- `404` if `post` is invalid
+
+#### `POST /api/comments?post=POST_ID` - Comment on a post
+
+**Body**
+
+- `content` _{string}_ - The content of the comment
+
+**Returns**
+
+- A success message
+- An object with the created comment
+
+**Throws**
+
+- `403` if the user is not logged in
+- `400` if `post` is not given
+- `404` if `post` is invalid
+- `403` if the user is not eligible to comment in Tiered Followers System
+- `400` If the comment content is empty or a stream of empty spaces
+- `413` If the comment content is more than 140 characters long
+
+#### `DELETE /api/comments?comment=COMMENT_ID` - Comment on a post
+
+**Returns**
+
+- A success message
+
+**Throws**
+
+- `403` if the user is not logged in
+- `403` if the user is not the author of the comment
+- `400` if `comment` is not given
+- `404` if `comment` is invalid
+
+### Filter Concept
+
+#### `GET /api/filters` - Get all the filter categories
+
+**Returns**
+
+- An array of all filter categories sorted in alphabetical order by name
+
+#### `GET /api/filters/:categoryId?` - Get a filter category by `categoryId`
+
+**Returns**
+
+- An array of all items in the category sorted in alphabetical order by name
+
+**Throws**
+
+- `404` if the `categoryId` is invalid
+
+#### `POST /api/filters` - Create a new category
+
+**Body**
+- `items` _{array}_ - The array of items in the new category
+
+**Returns**
+
+- A success message
+- A object with the created category
+
+**Throws**
+
+- `403` if the user is not logged in
+- `400` If the items array is empty
+
+#### `DELETE /api/filters/:categoryId?` - Delete an existing category
+
+**Returns**
+
+- A success message
+
+**Throws**
+
+- `403` if the user is not logged in
+- `404` if the `categoryId` is invalid
+- `403` if the user is not the creator of the category
+
+#### `PUT /api/filters/:categoryId?` - Update an existing category
+
+**Body**
+- `items` _{array}_ - The new array of items in the category
+
+**Returns**
+
+- A success message
+- A object with the updated category
+
+**Throws**
+
+- `403` if the user is not logged in
+- `404` if the `categoryId` is invalid
+- `403` if the user is not the creator of the category
+- `400` If the items array is empty
+
+#### `POST /api/filters/:categoryId?isEnabled=STATUS` - Enable or disable a filter for posts
+
+**Returns**
+
+- A success message
+- A object with the posts that match the filter
+
+**Throws**
+
+- `403` if the user is not logged in
+- `404` if the `categoryId` is invalid
+- `403` if the user is not the creator of the category
+- `400` if `isEnabled` is not given
+
+### Tiered Followers System Concept
+
+#### `GET /api/tiers/:userId?` - Check whether a user's Tiered Followers System is enabled
+
+**Returns**
+
+- An object of status information (boolean)
+
+**Throws**
+
+- `404` if the `userId` is invalid
+
+#### `GET /api/tiers/:userId1?/:userId2?` - Check whether User 1 is eligible under User 2's system
+
+**Returns**
+
+- An object of status information (boolean)
+
+**Throws**
+
+- `404` if `userId1` or `userId2` is invalid
+- `412` if User 2 hasn't enabled the system
+
+#### `PUT /api/tiers/:userId?enable=STATUS` - Enable/disable a user's system
+
+**Returns**
+
+- A success message
+- A object with the set of followers generated
+
+**Throws**
+
+- `404` if `userId` is invalid
+- `400` if `enable` is not given
+
+#### `PUT /api/tiers/:userId1?/:userId2?isAdd=STATUS` - Add/remove User 1 from User 2's set of eligible followers
+
+**Returns**
+
+- A success message
+- A object with the updated set of followers
+
+**Throws**
+
+- `404` if `userId1` or `userId2` is invalid
+- `400` if `isAdd` is not given
+- `412` if User 2 hasn't enabled the system
+
