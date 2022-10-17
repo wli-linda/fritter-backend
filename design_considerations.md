@@ -6,3 +6,6 @@
 - filter (feed) rely on implementation of follow, tiered follower rely on implementation of comment
     - comment can contain middleware validation to incorporate tiered follower concept
 - better naming for schema of tiered followers system? or full name is fine?
+
+## other questions
+- why ```authorId: Types.ObjectId | string``` in freet collections `addOne`?
