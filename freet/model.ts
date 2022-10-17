@@ -1,4 +1,4 @@
-import type {Types, PopulatedDoc, Document} from 'mongoose';
+import type {Types} from 'mongoose';
 import {Schema, model} from 'mongoose';
 import type {User} from '../user/model';
 
@@ -50,6 +50,15 @@ const FreetSchema = new Schema<Freet>({
     type: Date,
     required: true
   }
+}, {
+  toObject: { virtuals: true, versionKey: false },
+  toJSON: { virtuals: true, versionKey: false }
+});
+
+FreetSchema.virtual('comments', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'postId'
 });
 
 const FreetModel = model<Freet>('Freet', FreetSchema);

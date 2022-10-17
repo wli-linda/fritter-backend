@@ -33,6 +33,21 @@ const UserSchema = new Schema({
     type: Date,
     required: true
   }
+}, {
+  toObject: { virtuals: true, versionKey: false },
+  toJSON: { virtuals: true, versionKey: false }
+});
+
+UserSchema.virtual('followers', {
+  ref: 'Follow',
+  localField: '_id',
+  foreignField: 'followedId'
+});
+
+UserSchema.virtual('followings', {
+  ref: 'Follow',
+  localField: '_id',
+  foreignField: 'followerId'
 });
 
 const UserModel = model<User>('User', UserSchema);
