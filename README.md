@@ -397,7 +397,7 @@ This renders the `index.html` file that will be used to interact with the backen
 - `400` If the comment content is empty or a stream of empty spaces
 - `413` If the comment content is more than 140 characters long
 
-#### `DELETE /api/comments/:postId?` - Comment on a post
+#### `DELETE /api/comments/:commentId?` - Delete a comment on a post
 
 **Returns**
 
@@ -407,7 +407,7 @@ This renders the `index.html` file that will be used to interact with the backen
 
 - `403` if the user is not logged in
 - `403` if the user is not the author of the comment
-- `404` if `postId` is invalid
+- `404` if `commentId` is invalid
 
 ### Filter Concept
 

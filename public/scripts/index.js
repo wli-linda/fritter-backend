@@ -1,3 +1,5 @@
+const { createJSDocComment } = require("typescript");
+
 // Show an object on the screen.
 function showObject(obj) {
   const pre = document.getElementById('response');
@@ -38,7 +40,10 @@ const formsAndHandlers = {
   'view-freets-by-author': viewFreetsByAuthor,
   'create-freet': createFreet,
   'edit-freet': editFreet,
-  'delete-freet': deleteFreet
+  'delete-freet': deleteFreet,
+  'view-comments-by-post': viewCommentsByPost,
+  'create-comment': createComment,
+  'delete-comment': deleteComment,
 };
 
 // Attach handlers to forms

@@ -9,14 +9,6 @@ import * as util from './util';
 const router = express.Router();
 
 /**
- * Get all the 
- *
- * @name GET /api/comments
- *
- * @return {CommentResponse[]} - A list of all the comments sorted in descending
- *                      order by date modified
- */
-/**
  * Get comments by post.
  *
  * @name GET /api/comments?post=POST_ID
