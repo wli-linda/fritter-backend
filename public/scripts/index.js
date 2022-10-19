@@ -1,5 +1,3 @@
-const { createJSDocComment } = require("typescript");
-
 // Show an object on the screen.
 function showObject(obj) {
   const pre = document.getElementById('response');

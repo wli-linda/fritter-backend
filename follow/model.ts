@@ -11,11 +11,13 @@ export type Follow = {
 const FollowSchema = new Schema({
   followerId: {
     type: Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'User'
   },
   followedId: {
     type: Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'User'
   },
   timeFollowed: {
     type: Date,
@@ -25,6 +27,9 @@ const FollowSchema = new Schema({
   toObject: { virtuals: true, versionKey: false },
   toJSON: { virtuals: true, versionKey: false }
 });
+
+// CommentSchema.index({ freetId: 1, authorId: 1, content: 1 }, { unique: false })
+
 
 const FollowModel = model<Follow>('Follow', FollowSchema);
 export default FollowModel;

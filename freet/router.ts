@@ -1,6 +1,7 @@
 import type {NextFunction, Request, Response} from 'express';
 import express from 'express';
 import FreetCollection from './collection';
+import CommentCollection from '../comment/collection';
 import * as userValidator from '../user/middleware';
 import * as freetValidator from '../freet/middleware';
 import * as util from './util';
@@ -94,7 +95,9 @@ router.delete(
     freetValidator.isValidFreetModifier
   ],
   async (req: Request, res: Response) => {
-    await FreetCollection.deleteOne(req.params.freetId);
+    const freetId = (req.params.freetId as string) ?? ''; // Will not be an empty string since its validated in isFreetExists
+    await FreetCollection.deleteOne(freetId);
+    await CommentCollection.deleteManybyPost(freetId)
     res.status(200).json({
       message: 'Your freet was deleted successfully.'
     });

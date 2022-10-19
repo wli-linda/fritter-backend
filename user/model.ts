@@ -38,17 +38,30 @@ const UserSchema = new Schema({
   toJSON: { virtuals: true, versionKey: false }
 });
 
-UserSchema.virtual('followers', {
-  ref: 'Follow',
-  localField: '_id',
-  foreignField: 'followedId'
-});
+// UserSchema.virtual('comments', {
+//   ref: 'Comment',
+//   localField: '_id',
+//   foreignField: 'authorId'
+// });
 
-UserSchema.virtual('followings', {
-  ref: 'Follow',
-  localField: '_id',
-  foreignField: 'followerId'
-});
+// UserSchema.virtual('followers', {
+//   ref: 'Follow',
+//   localField: '_id',
+//   foreignField: 'followedId'
+// });
+
+// UserSchema.virtual('followings', {
+//   ref: 'Follow',
+//   localField: '_id',
+//   foreignField: 'followerId'
+// });
+
+// UserSchema.virtual('tiers', {
+//   ref: 'Tier',
+//   localField: '_id',
+//   foreignField: 'ownerId'
+// });
+
 
 const UserModel = model<User>('User', UserSchema);
 export default UserModel;

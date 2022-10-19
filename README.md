@@ -366,7 +366,7 @@ This renders the `index.html` file that will be used to interact with the backen
 
 ### Comment Concept
 
-#### `GET /api/comments?post=POST_ID` - Get all the comments of a post
+#### `GET /api/comments/:freetId?` - Get all the comments of a post
 
 **Returns**
 
@@ -374,10 +374,9 @@ This renders the `index.html` file that will be used to interact with the backen
 
 **Throws**
 
-- `400` if `post` is not given
-- `404` if `post` is invalid
+- `404` if `freetId` is invalid
 
-#### `POST /api/comments?post=POST_ID` - Comment on a post
+#### `POST /api/comments/:freetId?` - Comment on a post
 
 **Body**
 
@@ -391,8 +390,7 @@ This renders the `index.html` file that will be used to interact with the backen
 **Throws**
 
 - `403` if the user is not logged in
-- `400` if `post` is not given
-- `404` if `post` is invalid
+- `404` if `freetId` is invalid
 - `403` if the user is not eligible to comment in Tiered Followers System
 - `400` If the comment content is empty or a stream of empty spaces
 - `413` If the comment content is more than 140 characters long

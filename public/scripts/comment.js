@@ -6,13 +6,13 @@
  */
 
 function viewCommentsByPost(fields) {
-  fetch(`/api/comments?post=${fields.post}`)
+  fetch(`/api/comments/${fields.post}`)
     .then(showResponse)
     .catch(showResponse);
 }
 
 function createComment(fields) {
-  fetch(`/api/comments?post=${fields.post}`, {method: 'POST', body: JSON.stringify(fields.content), headers: {'Content-Type': 'application/json'}})
+  fetch(`/api/comments/${fields.post}`, {method: 'POST', body: JSON.stringify(fields), headers: {'Content-Type': 'application/json'}})
     .then(showResponse)
     .catch(showResponse);
 }

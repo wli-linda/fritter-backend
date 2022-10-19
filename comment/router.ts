@@ -11,27 +11,27 @@ const router = express.Router();
 /**
  * Get comments by post.
  *
- * @name GET /api/comments?post=POST_ID
+ * @name GET /api/comments/:freetId?
  *
  * @return {CommentResponse[]} - An array of comments in the post
- * @throws {400} - If postId is not given
- * @throws {404} - If postId is invalid
+ * @throws {400} - If freetId is not given
+ * @throws {404} - If freetId is invalid
  *
  */
 router.get(
-  '/',
+  '/:freetId?',
   async (req: Request, res: Response, next: NextFunction) => {
-    // Check if postId query parameter was supplied
-    if (req.query.post !== undefined) {
+    // Check if freetId parameter was supplied
+    if (req.params.freetId !== undefined) {
       next();
       return;
     }
   },
   [
-    commentValidator.isCommentExists
+    freetValidator.isFreetExists,
   ],
   async (req: Request, res: Response) => {
-    const postComments = await CommentCollection.findAllByPostId(req.query.post as string);
+    const postComments = await CommentCollection.findAllByFreetId(req.params.freetId as string);
     const response = postComments.map(util.constructCommentResponse);
     res.status(200).json(response);
   }
@@ -40,21 +40,21 @@ router.get(
 /**
  * Create a new comment for a post.
  *
- * @name POST /api/comments?post=POST_ID
+ * @name POST /api/comments/:freetId?
  *
  * @param {string} content - The content of the comment
  * @return {CommentResponse} - The created comment
  * @throws {403} - If the user is not logged in
- * @throws {400} - If postId is not given
- * @throws {404} - If postId is invalid
+ * @throws {400} - If freetId is not given
+ * @throws {404} - If freetId is invalid
  * @throws {400} - If the comment content is empty or a stream of empty spaces
  * @throws {413} - If the comment content is more than 140 characters long
  */
 router.post(
-  '/',
+  '/:freetId?',
   async (req: Request, res: Response, next: NextFunction) => {
-    // Check if postId query parameter was supplied
-    if (req.query.post !== undefined) {
+    // Check if freetId query parameter was supplied
+    if (req.params.freetId !== undefined) {
       next();
       return;
     }
@@ -66,7 +66,7 @@ router.post(
   ],
   async (req: Request, res: Response) => {
     const userId = (req.session.userId as string) ?? ''; // Will not be an empty string since its validated in isUserLoggedIn
-    const comment = await CommentCollection.addOne(req.query.post as string, userId, req.body.content);
+    const comment = await CommentCollection.addOne(req.params.freetId as string, userId, req.body.content);
 
     res.status(201).json({
       message: 'Your comment was created successfully.',
