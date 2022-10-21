@@ -9,6 +9,27 @@ import { constructFreetResponse } from '../freet/util';
 const router = express.Router();
 
 /**
+ * Get posts of all followed users
+ *
+ * @name GET /api/follows/posts
+ *
+ * @return {FreetResponse[]} - The array of freets from followed users
+ * @throws {403} - If the user is not logged in
+ */
+ router.get(
+  '/posts',
+  [
+    userValidator.isUserLoggedIn
+  ],
+  async (req: Request, res: Response) => {
+    const userId = req.session.userId as string;
+    const freets = await FollowCollection.findAllPostsByFollowed(userId);
+    const freetsResponse = freets.map(constructFreetResponse);
+    res.status(200).json(freetsResponse);
+  }
+);
+
+/**
  * Get if user 1 follows user 2
  *
  * @name GET /api/follows/:followerId?/:followedId?
@@ -53,7 +74,6 @@ router.get(
 router.post(
   '/:followedId?',
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.params);
     if (req.params.followedId !== undefined) {
       next();
       return;
@@ -64,7 +84,6 @@ router.post(
     followValidator.isFollowedUserExists
   ],
   async (req: Request, res: Response) => {
-    console.log("async");
     const followerId = (req.session.userId as string) ?? ''; // Will not be an empty string since its validated in isUserLoggedIn
     const follow = await FollowCollection.addOne(followerId, req.params.followedId as string);
 
@@ -99,29 +118,6 @@ router.delete(
     res.status(200).json({
       message: 'Your follow was deleted successfully.'
     });
-  }
-);
-
-/**
- * Get posts of all followed users
- *
- * @name GET /api/follows/posts
- *
- * @return {FreetResponse[]} - The array of freets from followed users
- * @throws {403} - If the user is not logged in
- */
- router.get(
-  '/posts',
-  [
-    userValidator.isUserLoggedIn,
-  ],
-  async (req: Request, res: Response) => {
-    console.log("get posts");
-    const userId = req.session.userId as string;
-    const freets = await FollowCollection.findAllPostsByFollowed(userId);
-    console.log("found?");
-    const freetsResponse = freets.map(constructFreetResponse);
-    res.status(200).json(freetsResponse);
   }
 );
 

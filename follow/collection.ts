@@ -16,7 +16,6 @@ class FollowCollection {
    */
   static async addOne(followerId: Types.ObjectId | string, followedId: Types.ObjectId | string): 
   Promise<HydratedDocument<Follow>> {
-    console.log("aaddOne");
     const date = new Date();
     const follow = new FollowModel({
       followerId,
@@ -64,37 +63,12 @@ class FollowCollection {
       return Promise.all(freets.map((freet) => freet.populate('authorId')));
     }
 
-    const res = new Array<HydratedDocument<Freet>>();
+    var res = new Array<HydratedDocument<Freet>>();
     for (let i = 0; i < follows.length; i++) {
       const freets = await getFreets(follows.at(i));
-      res.concat(freets);
+      res = res.concat(freets);
     }
     return res
-
-    // holy moly........... why is it so hard to use accumulators here :(((
-    // https://stackoverflow.com/questions/65322191/typescript-how-to-set-types-for-accumulated-value-and-initialvalue-on-reduce-fun
-    // https://stackoverflow.com/questions/47968144/array-map-with-accumulator-in-javascript 
-    // const empty = new Array<HydratedDocument<Freet>>();
-    // return follows.map((acc : Array<HydratedDocument<Freet>> => follow => {
-    //   const freets = getFreets(follow);
-    //   return acc.concat(freets)
-    // })(empty));
-
-    // const concatFreets = async function (acc: Promise<Array<HydratedDocument<Freet>>>, follow: Follow) {
-    //   const freets = await getFreets(follow);
-    //   return (await acc).concat(freets)
-    // }
-
-    // const init = new Array<HydratedDocument<Freet>>();
-    // const freets = follows.reduce((acc, follow) => concatFreets(acc, follow), init);
-    // return freets
-
-    // const freets = new Array<HydratedDocument<Freet>>();
-    // follows.forEach( (follow: Follow) => {
-    //   const user = UserCollection.findOneByUserId(follow.followedId);
-    //   const freets = FreetCollection.findAllByUsername(user.username);
-    // 
-    // })
   }
 
   /**

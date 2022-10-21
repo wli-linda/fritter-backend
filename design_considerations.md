@@ -16,6 +16,7 @@
 - to populate multiple fields, pipe `.populate('field1').populate('field2')`, not `.populate('field1', 'field2')`
 - vscode auto import folder structure is wrong, need to manually update
 - missing the `next()` in middleware is dangerous....
+- greedy matching of express routes, put more specific routes first in the file
 
 ## structure of code
 - model (mongoDB schema)

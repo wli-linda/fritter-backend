@@ -12,7 +12,6 @@ function viewFollow(fields) {
 }
 
 function viewAllFollowedPosts(fields) {
-  console.log("viewAllFollowedPosts");
   fetch('/api/follows/posts', {method: 'GET'})
     .then(showResponse)
     .catch(showResponse);

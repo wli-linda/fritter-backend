@@ -31,7 +31,6 @@ const constructFollowResponse = (follow: HydratedDocument<Follow>): FollowRespon
       versionKey: false // Cosmetics; prevents returning of __v property
     })
   };
-  console.log(followCopy);
   const follower = followCopy.followerId;
   const followed = followCopy.followedId;
   delete followCopy.followerId;
