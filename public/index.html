@@ -5,6 +5,7 @@
   <meta name="author" content="6.170 Staff">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="/scripts/follow.js"></script>
   <script src="/scripts/comment.js"></script>
   <script src="/scripts/freet.js"></script>
   <script src="/scripts/user.js"></script>
@@ -148,6 +149,46 @@
             <input id="id" name="id">
           </div>
           <input type="submit" value="Delete Comment">
+        </form>
+
+        <form id="view-follow">
+          <h3>View Follow Status</h3>
+          <div>
+            <label for="followerId">Follower:</label>
+            <input id="followerId" name="followerId">
+          </div>
+          <div>
+            <label for="followedId">Followed:</label>
+            <input id="followedId" name="followedId">
+          </div>
+          <input type="submit" value="View Follow Status">
+        </form>
+
+        <form id="create-follow">
+          <h3>Create Follow</h3>
+          <div>
+            <label for="followedId">User:</label>
+            <input id="followedId" name="followedId"></textarea>
+          </div>
+          <input type="submit" value="Create Follow">
+        </form>
+
+        <form id="delete-follow">
+          <h3>Delete Follow</h3>
+          <div>
+            <label for="followerId">Follower:</label>
+            <input id="followerId" name="followerId">
+          </div>
+          <div>
+            <label for="followedId">Followed:</label>
+            <input id="followedId" name="followedId">
+          </div>
+          <input type="submit" value="Delete Follow">
+        </form>
+
+        <form id="view-followed-posts">
+          <h3>View Feed</h3>
+          <input type="submit" value="View Feed">
         </form>
       </div>
     </section>

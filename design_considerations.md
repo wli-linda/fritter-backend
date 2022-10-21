@@ -10,17 +10,21 @@
 
 ## other questions
 - why ```authorId: Types.ObjectId | string``` in freet collections `addOne`?
+- `.reduce()` in async giving me heavy pain...
 
 ## other implementation notes
 - to populate multiple fields, pipe `.populate('field1').populate('field2')`, not `.populate('field1', 'field2')`
+- vscode auto import folder structure is wrong, need to manually update
+- missing the `next()` in middleware is dangerous....
 
 ## structure of code
 - model (mongoDB schema)
 - collection (CRUD functions with database)
 - middleware (input validation rules) & util (construct response)
 - router (api req -> middleware -> res)
+- add router to `/api/index.ts`
 - public (frontend)
     - scripts
         - concept specific .js (fields.XXX should match input ids in index.html)
         - add form handlers to index.js 
-    - add relevant form fields to index.html 
+    - add `<script scr="XXX.js"></script>` on top & add relevant form fields to index.html 

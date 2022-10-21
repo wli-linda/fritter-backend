@@ -1,10 +1,18 @@
 import type {Types} from 'mongoose';
 import {Schema, model} from 'mongoose';
+import { User } from '../user/model';
 
 export type Follow = {
   _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
-  followerId: Types.ObjectId
+  followerId: Types.ObjectId;
   followedId: Types.ObjectId;
+  timeFollowed: Date;
+};
+
+export type PopulatedFollow = {
+  _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
+  followerId: User;
+  followedId: User;
   timeFollowed: Date;
 };
 
@@ -28,7 +36,7 @@ const FollowSchema = new Schema({
   toJSON: { virtuals: true, versionKey: false }
 });
 
-// CommentSchema.index({ freetId: 1, authorId: 1, content: 1 }, { unique: false })
+FollowSchema.index({ followerId: 1, followedId: 1 }, { unique: true })
 
 
 const FollowModel = model<Follow>('Follow', FollowSchema);

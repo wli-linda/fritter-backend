@@ -42,6 +42,10 @@ const formsAndHandlers = {
   'view-comments-by-post': viewCommentsByPost,
   'create-comment': createComment,
   'delete-comment': deleteComment,
+  'view-follow': viewFollow,
+  'create-follow': createFollow,
+  'delete-follow': deleteFollow,
+  'view-followed-posts': viewAllFollowedPosts,
 };
 
 // Attach handlers to forms
