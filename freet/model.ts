@@ -55,11 +55,5 @@ const FreetSchema = new Schema<Freet>({
   toJSON: { virtuals: true, versionKey: false }
 });
 
-// FreetSchema.virtual('comments', {
-//   ref: 'Comment',
-//   localField: '_id',
-//   foreignField: 'freetId'
-// });
-
 const FreetModel = model<Freet>('Freet', FreetSchema);
 export default FreetModel;

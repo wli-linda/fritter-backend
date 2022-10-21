@@ -6,6 +6,21 @@
 - filter (feed) rely on implementation of follow, tiered follower rely on implementation of comment
     - comment can contain middleware validation to incorporate tiered follower concept
 - better naming for schema of tiered followers system? or full name is fine?
+- virtuals vs. modularity
 
 ## other questions
 - why ```authorId: Types.ObjectId | string``` in freet collections `addOne`?
+
+## other implementation notes
+- to populate multiple fields, pipe `.populate('field1').populate('field2')`, not `.populate('field1', 'field2')`
+
+## structure of code
+- model (mongoDB schema)
+- collection (CRUD functions with database)
+- middleware (input validation rules) & util (construct response)
+- router (api req -> middleware -> res)
+- public (frontend)
+    - scripts
+        - concept specific .js (fields.XXX should match input ids in index.html)
+        - add form handlers to index.js 
+    - add relevant form fields to index.html 

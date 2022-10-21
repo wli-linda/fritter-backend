@@ -32,15 +32,13 @@ const constructCommentResponse = (comment: HydratedDocument<Comment>): CommentRe
       versionKey: false // Cosmetics; prevents returning of __v property
     })
   };
-  console.log(commentCopy);
   const {content} = commentCopy.freetId;
   const {username} = commentCopy.authorId;
-  console.log("freet content:", content);
   delete commentCopy.freetId;
   delete commentCopy.authorId;
   return {
     ...commentCopy,
-    _id: commentCopy._id.toString(),
+    _id: commentCopy._id.toString(), // why does id show up twice in response?
     freetContent: content,
     author: username,
     datePosted: formatDate(comment.datePosted),
