@@ -354,11 +354,11 @@ This renders the `index.html` file that will be used to interact with the backen
 - `412` if user doens't currently follow the other user
 - `404` if `userId` is invalid
 
-#### `GET /api/followers/posts` - Retrieve all posts from user's followings
+#### `GET /api/followers/freets` - Retrieve all freets from user's followings
 
 **Returns**
 
-- An object with details of all the posts and associated users sorted in descending order by date modified of posts
+- An object with details of all the freets and associated users sorted in descending order by date modified of freets
 
 **Throws**
 
@@ -469,12 +469,12 @@ This renders the `index.html` file that will be used to interact with the backen
 - `403` if the user is not the creator of the category
 - `400` If the items array is empty
 
-#### `POST /api/filters/:categoryId?isEnabled=STATUS` - Enable or disable a filter for posts
+#### `POST /api/filters/:categoryId?isEnabled=STATUS` - Enable or disable a filter for freets
 
 **Returns**
 
 - A success message
-- A object with the posts that match the filter
+- A object with the freets that match the filter
 
 **Throws**
 

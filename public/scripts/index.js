@@ -45,7 +45,7 @@ const formsAndHandlers = {
   'view-follow': viewFollow,
   'create-follow': createFollow,
   'delete-follow': deleteFollow,
-  'view-followed-posts': viewAllFollowedPosts,
+  'view-followed-freets': viewAllFollowedFreets,
   'view-follower-tier': viewFollowerTier,
   'update-tier-system-status': updateTierSystemStatus,
   'update-override-followers': updateOverrideFollowers,
@@ -53,6 +53,7 @@ const formsAndHandlers = {
   'create-category': createCategory,
   'update-category': updateCategory,
   'delete-category': deleteCategory,
+  'view-feed-by-category': viewFeedByCategory,
 };
 
 // Attach handlers to forms

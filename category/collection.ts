@@ -1,6 +1,7 @@
 import {HydratedDocument, Types} from 'mongoose';
 import UserCollection from '../user/collection';
 import type {Category} from './model';
+import type { Freet } from '../freet/model';
 import CategoryModel from './model';
 
 class CategoryCollection {
@@ -43,6 +44,25 @@ class CategoryCollection {
         const author = await UserCollection.findOneByUserId(authorId);
         return CategoryModel.find({authorId: author._id}).populate('authorId');
   }
+
+  /**
+   * Find all freets in the feed belonging to a category
+   * 
+   * @param {string} categoryId - The id of the category to apply
+   * @returns {Promise<HydratedDocument<Tier>> | Promise<null> } The category with the given ownerId, if any
+   */
+   static async findAllFeedFreetsInCategory(categoryId: Types.ObjectId | string, freets: Array<HydratedDocument<Freet>>): 
+   Promise<Array<HydratedDocument<Freet>>> {
+    const users = (await CategoryCollection.findOne(categoryId)).items;
+    var res = new Array<HydratedDocument<Freet>>();
+    freets.forEach(freet => {
+      const author = freet.authorId._id;
+      if (users.includes(author)) {
+        res.push(freet);
+      }
+    });
+    return res;
+}
 
   /** 
     * Add an item to items of category.

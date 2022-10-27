@@ -9,21 +9,21 @@ import { constructFreetResponse } from '../freet/util';
 const router = express.Router();
 
 /**
- * Get posts of all followed users
+ * Get freets of all followed users
  *
- * @name GET /api/follows/posts
+ * @name GET /api/follows/freets
  *
  * @return {FreetResponse[]} - The array of freets from followed users
  * @throws {403} - If the user is not logged in
  */
  router.get(
-  '/posts',
+  '/freets',
   [
     userValidator.isUserLoggedIn
   ],
   async (req: Request, res: Response) => {
     const userId = req.session.userId as string;
-    const freets = await FollowCollection.findAllPostsByFollowed(userId);
+    const freets = await FollowCollection.findAllFreetsByFollowed(userId);
     const freetsResponse = freets.map(constructFreetResponse);
     res.status(200).json(freetsResponse);
   }

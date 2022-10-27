@@ -49,12 +49,12 @@ class FollowCollection {
   }
 
   /**
-   * Get all the posts from the followed list of a user
+   * Get all the freets from the followed list of a user
    *
    * @param {string} userId - The userId of the user
-   * @return {Promise<HydratedDocument<Freet>[]>} - An array of all of the followed's posts of the user
+   * @return {Promise<HydratedDocument<Freet>[]>} - An array of all of the followed's freets of the user
    */
-  static async findAllPostsByFollowed(userId: Types.ObjectId | string): Promise<Array<HydratedDocument<Freet>>> {
+  static async findAllFreetsByFollowed(userId: Types.ObjectId | string): Promise<Array<HydratedDocument<Freet>>> {
     const follows = await this.findAllByUserId(userId);
     const getFreets = async function (follow: Follow) {
       const user = await UserCollection.findOneByUserId(follow.followedId);

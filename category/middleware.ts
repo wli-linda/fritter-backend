@@ -38,7 +38,7 @@ import CategoryCollection from './collection';
 };
 
 /**
- * Checks if the current user matches the authorId in req.params
+ * Checks if the currently logged-in user matches the authorId of the given category
  */
 const isValidCategoryModifier = async (req: Request, res: Response, next: NextFunction) => {
   const {authorId} = await CategoryCollection.findOne(req.params.categoryId);

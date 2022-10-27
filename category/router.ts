@@ -1,15 +1,38 @@
 import type {NextFunction, Request, Response} from 'express';
 import express from 'express';
 import CategoryCollection from './collection';
+import FollowCollection from '../follow/collection';
 import * as userValidator from '../user/middleware';
 import * as categoryValidator from '../category/middleware';
 import * as util from './util';
+import { constructFreetResponse } from '../freet/util';
 
 const router = express.Router();
 
-// GET specific filter? or maybe just call it with sync
+/**
+ * Get freets feed filtered by a user category.
+ *
+ * @name GET /api/categories/:categoryId?/freets
+ *
+ * @return {FreetResponse[]} - An array of freets by the users in this category
+ * @throws {404} - If authorId is invalid
+ *
+ */
+ router.get(
+  '/:categoryId?/freets',
+  [
+    userValidator.isUserLoggedIn,
+    categoryValidator.isCategoryExists,
+    categoryValidator.isValidCategoryModifier,
+  ],
+  async (req: Request, res: Response) => {
+    const userId = (req.session.userId as string) ?? ''; // Will not be an empty string since its validated in isUserLoggedIn
+    const freets = await FollowCollection.findAllFreetsByFollowed(userId);
+    const filteredFreets = await CategoryCollection.findAllFeedFreetsInCategory(req.params.categoryId as string, freets)
+    res.status(200).json(filteredFreets.map(constructFreetResponse));
+  }
+);
 
-// POST create new category
 /**
  * Create a new category for a post.
  *
@@ -38,7 +61,6 @@ const router = express.Router();
   }
 );
 
-// GET filter categories by user
 /**
  * Get categories by author.
  *
@@ -60,7 +82,6 @@ router.get(
   }
 );
 
-// DELETE delete existing category
 /**
  * Delete a category
  *
@@ -86,7 +107,6 @@ router.delete(
   }
 );
 
-// PUT add/remove items in category
 /**
  * Add/remove items in a category
  *

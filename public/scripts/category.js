@@ -18,6 +18,12 @@ function viewCategoriesByAuthor(fields) {
     .catch(showResponse);
 }
 
+function viewFeedByCategory(fields) {
+  fetch(`/api/categories/${fields.categoryId}/freets`)
+    .then(showResponse)
+    .catch(showResponse);
+}
+
 function deleteCategory(fields) {
   fetch(`/api/categories/${fields.categoryId}`, {method: 'DELETE'})
     .then(showResponse)

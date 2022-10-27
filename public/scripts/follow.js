@@ -11,8 +11,8 @@ function viewFollow(fields) {
     .catch(showResponse);
 }
 
-function viewAllFollowedPosts(fields) {
-  fetch('/api/follows/posts', {method: 'GET'})
+function viewAllFollowedFreets(fields) {
+  fetch('/api/follows/freets', {method: 'GET'})
     .then(showResponse)
     .catch(showResponse);
 }
