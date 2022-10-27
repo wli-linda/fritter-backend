@@ -8,7 +8,14 @@ import * as util from './util';
 
 const router = express.Router();
 
-// PUT toggle user's system status
+/**
+ * Enable/disable a user's Tiered Followers System
+ *
+ * @name PUT /api/tiers/status
+ *
+ * @return {TierResponse} - The updated tier
+ * @throws {403} - If the user is not logged in
+ */
 router.put(
   '/status',
   [
@@ -22,8 +29,16 @@ router.put(
   }
 );
 
-// GET check if user1 is in user2's sys
-// TODO
+/**
+ * Check if follower is in the tiered followers list of followed user
+ *
+ * @name GET /api/tiers/:followerId?/:followedId?
+ *
+ * @return {boolean} - true if in the list, false otherwise
+ * 
+ * @throws {404} - If followerId or followedId is invalid
+ * @throws {412} - If the tier doesn't exist or is not enabled for the followed user
+ */
 router.get(
   '/:followerId?/:followedId?',
   [
@@ -43,8 +58,19 @@ router.get(
   }
 );
 
-// PUT add/remove from set
-// /:followerId?/:followedId?operation=addOrDelete
+/**
+ * Add/remove followers from a user's overrideFollowers list
+ *
+ * @name PUT /api/tiers/:followerId?/:followedId?operation=addOrDelete
+ *
+ * @return {TierResponse} - The updated tier
+ * 
+ * @throws {404} - If followerId or followedId is invalid
+ * @throws {412} - If the tier doesn't exist or is not enabled for the followed user
+ * @throws {403} - If the user is not logged in or not the owner of the tier
+ * @throws {400} - If the operation is empty
+ * @throws {404} - If the operation is not valid
+ */
 router.put(
   '/:followerId?/:followedId?',
   [

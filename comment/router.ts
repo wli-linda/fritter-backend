@@ -14,7 +14,6 @@ const router = express.Router();
  * @name GET /api/comments/:freetId?
  *
  * @return {CommentResponse[]} - An array of comments in the post
- * @throws {400} - If freetId is not given
  * @throws {404} - If freetId is invalid
  *
  */
@@ -45,7 +44,6 @@ router.get(
  * @param {string} content - The content of the comment
  * @return {CommentResponse} - The created comment
  * @throws {403} - If the user is not logged in
- * @throws {400} - If freetId is not given
  * @throws {404} - If freetId is invalid
  * @throws {400} - If the comment content is empty or a stream of empty spaces
  * @throws {413} - If the comment content is more than 140 characters long

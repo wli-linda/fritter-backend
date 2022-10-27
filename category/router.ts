@@ -118,7 +118,6 @@ router.delete(
  * @throws {404} - If the categoryId is not valid
  * @throws {400} - If the operation is empty
  * @throws {404} - If the operation is not valid
-//  * @throws {404} - If the itemId is not valid // not sure how to account for generic types here
  */
 router.put(
   '/:categoryId?/:itemId?',

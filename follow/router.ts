@@ -1,6 +1,7 @@
 import type {NextFunction, Request, Response} from 'express';
 import express from 'express';
 import FollowCollection from './collection';
+import TierCollection from '../tier/collection';
 import * as userValidator from '../user/middleware';
 import * as followValidator from '../follow/middleware';
 import * as util from './util';
@@ -113,6 +114,7 @@ router.delete(
   async (req: Request, res: Response) => {
     const followerId = req.params.followerId as string;
     const followedId = req.params.followedId as string;
+    TierCollection.deleteFromTimedFollowers(followedId, followerId);
     const follow = await FollowCollection.findOne(followerId, followedId) // won't be undefined bc isFollowExists
     await FollowCollection.deleteOne(follow._id.toString());
     res.status(200).json({
