@@ -5,6 +5,7 @@
   <meta name="author" content="6.170 Staff">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="/scripts/tier.js"></script>
   <script src="/scripts/follow.js"></script>
   <script src="/scripts/comment.js"></script>
   <script src="/scripts/freet.js"></script>
@@ -189,6 +190,54 @@
         <form id="view-followed-posts">
           <h3>View Feed</h3>
           <input type="submit" value="View Feed">
+        </form>
+
+        <!-- <form id="view-tier-system-status-by-owner">
+          <h3>View Tiered System Status By Owner</h3>
+          <div>
+            <label for="followedId">Owner:</label>
+            <input id="followedId" name="followedId">
+          </div>
+          <input type="submit" value="View Tiered System Status By Owner">
+        </form> -->
+
+        <form id="view-follower-tier">
+          <h3>View Follower Tier in System</h3>
+          <div>
+            <label for="followerId">Follower:</label>
+            <input id="followerId" name="followerId">
+          </div>
+          <div>
+            <label for="followedId">Followed:</label>
+            <input id="followedId" name="followedId">
+          </div>
+          <input type="submit" value="View Follower Tier in System">
+        </form>
+
+        <form id="update-tier-system-status">
+          <h3>Enable/Disable Tiered System</h3>
+          <input type="submit" value="Enable/Disable Tiered System">
+        </form>
+
+        <form id="update-override-followers">
+          <h3>Update Override Followers List</h3>
+          <div>
+            <label for="followerId">Follower:</label>
+            <input id="followerId" name="followerId">
+          </div>
+          <div>
+            <label for="followedId">Followed:</label>
+            <input id="followedId" name="followedId">
+          </div>
+          <div>
+            <label for="operation">Operation:</label>
+            <select name="operation" id="operation">
+                <option value="">--Please choose an option--</option>
+                <option value="add">Add</option>
+                <option value="delete">Remove</option>
+            </select>
+          </div>
+          <input type="submit" value="Update Override Followers List">
         </form>
       </div>
     </section>

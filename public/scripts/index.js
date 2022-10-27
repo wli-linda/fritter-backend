@@ -46,6 +46,10 @@ const formsAndHandlers = {
   'create-follow': createFollow,
   'delete-follow': deleteFollow,
   'view-followed-posts': viewAllFollowedPosts,
+  // 'view-tier-system-status-by-owner': viewTierStatusByOwner,
+  'view-follower-tier': viewFollowerTier,
+  'update-tier-system-status': updateTierSystemStatus,
+  'update-override-followers': updateOverrideFollowers,
 };
 
 // Attach handlers to forms

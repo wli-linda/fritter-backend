@@ -12,6 +12,7 @@ export type User = {
   username: string;
   password: string;
   dateJoined: Date;
+  // tiers?: Types.ObjectId;
 };
 
 // Mongoose schema definition for interfacing with a MongoDB table
@@ -37,24 +38,6 @@ const UserSchema = new Schema({
   toObject: { virtuals: true, versionKey: false },
   toJSON: { virtuals: true, versionKey: false }
 });
-
-// UserSchema.virtual('comments', {
-//   ref: 'Comment',
-//   localField: '_id',
-//   foreignField: 'authorId'
-// });
-
-// UserSchema.virtual('followers', {
-//   ref: 'Follow',
-//   localField: '_id',
-//   foreignField: 'followedId'
-// });
-
-// UserSchema.virtual('followings', {
-//   ref: 'Follow',
-//   localField: '_id',
-//   foreignField: 'followerId'
-// });
 
 // UserSchema.virtual('tiers', {
 //   ref: 'Tier',

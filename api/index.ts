@@ -13,6 +13,7 @@ import {userRouter} from '../user/router';
 import {freetRouter} from '../freet/router';
 import { commentRouter } from '../comment/router';
 import { followRouter } from '../follow/router';
+import { tierRouter } from '../tier/router';
 
 // Load environmental variables
 dotenv.config({});
@@ -80,6 +81,7 @@ app.use('/api/users', userRouter);
 app.use('/api/freets', freetRouter);
 app.use('/api/comments', commentRouter);
 app.use('/api/follows', followRouter);
+app.use('/api/tiers', tierRouter);
 
 // Catch all the other routes and display error message
 app.all('*', (req: Request, res: Response) => {

@@ -17,6 +17,8 @@
 - vscode auto import folder structure is wrong, need to manually update
 - missing the `next()` in middleware is dangerous....
 - greedy matching of express routes, put more specific routes first in the file
+- concern re: if a user is deleted, it's maybe not very optimized to delete their status in someone else's tiered followers system? not sure what the time complexity of deletion of a particular element in JS arrays is 
+- whether to take as input ownerId or tierId??
 
 ## structure of code
 - model (mongoDB schema)

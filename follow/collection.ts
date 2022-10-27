@@ -1,7 +1,6 @@
 import type {HydratedDocument, Types} from 'mongoose';
 import type {Follow} from './model';
 import FollowModel from './model';
-import { User } from '../user/model';
 import { Freet } from '../freet/model';
 import UserCollection from '../user/collection';
 import FreetCollection from '../freet/collection';
