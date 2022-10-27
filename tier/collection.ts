@@ -88,7 +88,6 @@ class TierCollection {
         return TierModel.findOne({ownerId: ownerId}).populate('ownerId');
     }
 
-
     // https://www.mongodb.com/docs/manual/reference/operator/query-logical/
     /**
      * Find a tier by ownerId

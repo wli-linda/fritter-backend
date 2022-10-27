@@ -49,6 +49,10 @@ const formsAndHandlers = {
   'view-follower-tier': viewFollowerTier,
   'update-tier-system-status': updateTierSystemStatus,
   'update-override-followers': updateOverrideFollowers,
+  'view-categories-by-author': viewCategoriesByAuthor,
+  'create-category': createCategory,
+  'update-category': updateCategory,
+  'delete-category': deleteCategory,
 };
 
 // Attach handlers to forms

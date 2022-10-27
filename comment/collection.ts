@@ -21,7 +21,7 @@ class CommentCollection {
       datePosted: date,
       content,
     });
-    await comment.save(); // Saves freet to MongoDB
+    await comment.save(); // Saves comment to MongoDB
     return (await comment.populate('freetId')).populate('authorId');
   }
 

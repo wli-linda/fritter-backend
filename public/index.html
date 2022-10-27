@@ -5,6 +5,7 @@
   <meta name="author" content="6.170 Staff">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="/scripts/category.js"></script>
   <script src="/scripts/tier.js"></script>
   <script src="/scripts/follow.js"></script>
   <script src="/scripts/comment.js"></script>
@@ -229,6 +230,54 @@
             </select>
           </div>
           <input type="submit" value="Update Override Followers List">
+        </form>
+
+        <form id="view-categories-by-author">
+          <h3>View Categories By Author</h3>
+          <div>
+            <label for="author">Author:</label>
+            <input id="author" name="author">
+          </div>
+          <input type="submit" value="View Categories By Author">
+        </form>
+
+        <form id="create-category">
+          <h3>Create Category</h3>
+          <div>
+            <label for="name">Name:</label>
+            <input id="name" name="name"></input>
+          </div>
+          <input type="submit" value="Create Category">
+        </form>
+
+        <form id="update-category">
+          <h3>Edit Category</h3>
+          <div>
+            <label for="categoryId">Category ID:</label>
+            <input id="categoryId" name="categoryId">
+          </div>
+          <div>
+            <label for="itemId">Item ID:</label>
+            <input id="itemId" name="itemId">
+          </div>
+          <div>
+            <label for="operation">Operation:</label>
+            <select name="operation" id="operation">
+                <option value="">--Please choose an option--</option>
+                <option value="add">Add</option>
+                <option value="delete">Remove</option>
+            </select>
+          </div>
+          <input type="submit" value="Edit Category">
+        </form>
+
+        <form id="delete-category">
+          <h3>Delete Category</h3>
+          <div>
+            <label for="categoryId">Category ID:</label>
+            <input id="categoryId" name="categoryId">
+          </div>
+          <input type="submit" value="Delete Category">
         </form>
       </div>
     </section>

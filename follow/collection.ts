@@ -21,7 +21,7 @@ class FollowCollection {
       followedId,
       timeFollowed: date,
     });
-    await follow.save(); // Saves freet to MongoDB
+    await follow.save(); 
     return (await follow.populate('followerId')).populate('followedId');
   }
 
