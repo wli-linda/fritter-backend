@@ -7,7 +7,6 @@ import TierCollection from '../tier/collection';
  * Checks if a tier with ownerId matching req.params.followedId exists
  */
  const isTierExists = async (req: Request, res: Response, next: NextFunction) => {
-  console.log("isTierExists")
   const validFormat = Types.ObjectId.isValid(req.params.followedId);
   const tier = validFormat ? await TierCollection.findOneByOwner(req.params.followedId) : '';
   if (!tier || !tier.isEnabled) {

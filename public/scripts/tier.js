@@ -11,24 +11,14 @@ function viewFollowerTier(fields) {
     .catch(showResponse);
 }
 
-// function viewTierStatusByOwner(fields) {
-//   console.log("viewTierStatusByOwner");
-//   console.log("followId", fields.followedId);
-//   fetch(`/api/tiers/${fields.followedId}`)
-//     .then(showResponse)
-//     .catch(showResponse);
-// }
-
 function updateTierSystemStatus(fields) {
-  console.log(1);
   fetch(`/api/tiers/status`, {method: 'PUT'})
     .then(showResponse)
     .catch(showResponse);
 }
 
 function updateOverrideFollowers(fields) {
-  fetch(`/api/tiers/${fields.followerId}/${fields.followedId}?operation=${fields.operation}`, 
-  {method: 'PUT', body: JSON.stringify(fields), headers: {'Content-Type': 'application/json'}})
+  fetch(`/api/tiers/${fields.followerId}/${fields.followedId}?operation=${fields.operation}`, {method: 'PUT'})
     .then(showResponse)
     .catch(showResponse);
 }

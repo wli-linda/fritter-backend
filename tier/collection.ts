@@ -34,10 +34,10 @@ class TierCollection {
         if (!tier) {
             tier = await TierCollection.addOne(ownerId);
         } 
-        const timedFollowers = tier.timedFollowers;
-        timedFollowers.push(followerId);
-        tier.timedFollowers = timedFollowers;
-        await tier.save()
+        await TierModel.updateOne(
+            {ownerId: ownerId}, 
+            {$addToSet: {timedFollowers: followerId}}
+        );
         return tier.populate('ownerId');
     }
 
@@ -50,15 +50,15 @@ class TierCollection {
      */
      static async addToOverrideFollowers(ownerId: Types.ObjectId | string, followerId: Types.ObjectId | string):
      Promise<HydratedDocument<Tier>> {
-         var tier =  await TierModel.findOne({ownerId: ownerId});
-         if (!tier) {
+        var tier =  await TierModel.findOne({ownerId: ownerId});
+        if (!tier) {
             tier = await TierCollection.addOne(ownerId);
-         } 
-         const overrideFollowers = tier.overrideFollowers;
-         overrideFollowers.push(followerId);
-         tier.overrideFollowers = overrideFollowers;
-         await tier.save()
-         return tier.populate('ownerId');
+        } 
+        await TierModel.updateOne(
+            {ownerId: ownerId}, 
+            {$addToSet: {overrideFollowers: followerId}}
+        );
+        return tier.populate('ownerId');
      }
     
     /**
@@ -68,7 +68,6 @@ class TierCollection {
      * @returns {Promise<boolean>} The isEnabled status after toggling
      */
     static async toggleStatus(ownerId: Types.ObjectId | string): Promise<HydratedDocument<Tier>> {
-        console.log(3);
         var tier = await TierModel.findOne({ownerId: ownerId});
         if (!tier) {
             tier = await TierCollection.addOne(ownerId);
@@ -87,6 +86,28 @@ class TierCollection {
      */
     static async findOneByOwner(ownerId: Types.ObjectId | string): Promise<HydratedDocument<Tier>> {
         return TierModel.findOne({ownerId: ownerId}).populate('ownerId');
+    }
+
+
+    // https://www.mongodb.com/docs/manual/reference/operator/query-logical/
+    /**
+     * Find a tier by ownerId
+     * 
+     * @param {string} ownerId - The id of the owner of the tier system
+     * @param {string} followerId - The id of the follower to be checked 
+     * @returns {Promise<HydratedDocument<Tier>> | Promise<null> } The tier system with the given ownerId, if any
+     */
+     static async findFollowerInSystem(ownerId: Types.ObjectId | string, followerId: Types.ObjectId | string): Promise<boolean> {
+        const tier = await TierModel.findOne({
+            $and: [
+                {ownerId: ownerId},
+                {$or: [
+                    {timedFollowers: {$in: followerId}},
+                    {overrideFollowers: {$in: followerId}}
+                ]}
+            ]
+        });
+        return !tier ? false : true;
     }
 
     /**

@@ -24,7 +24,6 @@ import FollowCollection from '../follow/collection';
  * Checks if a user with id of followedId in req.params exists
  */
  const isFollowedUserExists = async (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.params);
   const id = req.params.followedId;
   const user = await UserCollection.findOneByUserId(id);
   if (!user) {

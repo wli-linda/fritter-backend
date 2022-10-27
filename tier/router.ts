@@ -15,9 +15,8 @@ router.put(
     userValidator.isUserLoggedIn,
   ],
   async (req: Request, res: Response) => {
-    console.log(2);
-    const userId = req.session.userId as string;
-    const tier = await TierCollection.toggleStatus(userId);
+    const ownerId = req.session.userId as string;
+    const tier = await TierCollection.toggleStatus(ownerId);
     const response = util.constructTierResponse(tier);
     res.status(200).json(response);
   }
@@ -34,32 +33,15 @@ router.get(
     tierValidator.isTierEnabledForUser,
   ],
   async (req: Request, res: Response) => {
-    const userId = req.params.followedId as string;
-    const tier = await TierCollection.findOneByOwner(userId);
-    const response = util.constructTierResponse(tier);
-    res.status(200).json(response);
+    const followerId = req.params.followerId;
+    const ownerId = req.params.followedId as string;
+    const tierStatus = await TierCollection.findFollowerInSystem(ownerId, followerId);
+    res.status(200).json({
+      message: `User ${followerId} is ${tierStatus ? '' : 'not '}a tiered follower of user ${ownerId}.`,
+      tierStatus: tierStatus,
+    });
   }
 );
-
-// // GET get enabled status of user
-
-// router.get(
-//   '/:followedId?',
-//   [
-//     followValidator.isFollowedUserExists,
-//     tierValidator.isTierExists,
-//   ],
-//   async (req: Request, res: Response) => {
-//     console.log("GET enabled status")
-//     const userId = req.params.followedId as string;
-//     const tier = await TierCollection.findOneByOwner(userId);
-//     const status = tier.isEnabled;
-//     res.status(200).json({
-//       user: userId, 
-//       isEnabled: status
-//     });
-//   }
-// );
 
 // PUT add/remove from set
 // /:followerId?/:followedId?operation=addOrDelete
@@ -85,7 +67,7 @@ router.put(
     tier = await TierCollection.deleteFromOverrideFollowers(ownerId, followerId);
   }
   res.status(200).json({
-    message: 'Your freet was updated successfully.',
+    message: 'Your tier system was updated successfully.',
     tier: util.constructTierResponse(tier)
   });
  }

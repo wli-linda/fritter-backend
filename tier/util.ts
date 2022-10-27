@@ -1,5 +1,4 @@
 import type {HydratedDocument} from 'mongoose';
-import moment from 'moment';
 import type {Tier, PopulatedTier} from '../tier/model';
 
 // Update this if you add a property to the Tier type!
