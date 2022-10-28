@@ -25,7 +25,10 @@ router.put(
     const ownerId = req.session.userId as string;
     const tier = await TierCollection.toggleStatus(ownerId);
     const response = util.constructTierResponse(tier);
-    res.status(200).json(response);
+    res.status(200).json({
+      message: 'Your tier system was updated successfully.',
+      tier: response
+    });
   }
 );
 

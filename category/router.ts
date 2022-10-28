@@ -15,7 +15,9 @@ const router = express.Router();
  * @name GET /api/categories/:categoryId?/freets
  *
  * @return {FreetResponse[]} - An array of freets by the users in this category
- * @throws {404} - If authorId is invalid
+ * @throws {403} - If the user is not logged in or is not the author of
+ *                 the category
+ * @throws {404} - If the categoryId is not valid
  *
  */
  router.get(

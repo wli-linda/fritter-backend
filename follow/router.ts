@@ -39,6 +39,7 @@ const router = express.Router();
  * @param {followedId} - The followed user
  * @return {FollowResponse} - The follow if it exists
  * @throws {404} - If followerId or followedId is invalid
+ * @throws {412} - If follow doesn't exist
  *
  */
 router.get(
@@ -98,21 +99,22 @@ router.post(
 /**
  * Unfollow another user
  *
- * @name DELETE /api/follows/:followerId?/:followedId?
+ * @name DELETE /api/follows/:followedId?
  *
  * @return {string} - A success message
  * @throws {403} - If the user is not logged in
  * @throws {404} - If the follow doesn't exist
+ * @throws {412} - If follow doesn't exist
  */
 router.delete(
-  '/:followerId?/:followedId?',
+  '/:followedId?',
   [
     userValidator.isUserLoggedIn,
     followValidator.isFollowExists,
     followValidator.isFollowedUserExists
   ],
   async (req: Request, res: Response) => {
-    const followerId = req.params.followerId as string;
+    const followerId = req.session.userId as string;
     const followedId = req.params.followedId as string;
     TierCollection.deleteFromTimedFollowers(followedId, followerId);
     const follow = await FollowCollection.findOne(followerId, followedId) // won't be undefined bc isFollowExists

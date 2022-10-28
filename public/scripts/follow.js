@@ -24,7 +24,7 @@ function createFollow(fields) {
 }
 
 function deleteFollow(fields) {
-  fetch(`/api/follows/${fields.followerId}/${fields.followedId}`, {method: 'DELETE'})
+  fetch(`/api/follows/${fields.followedId}`, {method: 'DELETE'})
     .then(showResponse)
     .catch(showResponse);
 }

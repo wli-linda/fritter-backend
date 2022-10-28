@@ -41,13 +41,13 @@ import FollowCollection from '../follow/collection';
  * Checks if a follow with followerId and followedId in req.params exists
  */
 const isFollowExists = async (req: Request, res: Response, next: NextFunction) => {
-  const followerId = req.params.followerId;
+  const followerId = req.params.followerId || req.session.userId;
   const followedId = req.params.followedId;
   const validFormat1 = Types.ObjectId.isValid(followerId);
   const validFormat2 = Types.ObjectId.isValid(followedId)
   const follow = (validFormat1 && validFormat2) ? await FollowCollection.findOne(followerId, followedId) : '';
   if (!follow) {
-    res.status(404).json({
+    res.status(412).json({
       error: {
         followNotFound: `Follow with follow ID ${req.params.followId} does not exist.`
       }

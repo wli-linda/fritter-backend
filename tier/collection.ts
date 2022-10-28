@@ -140,7 +140,7 @@ class TierCollection {
     }
 
     /** 
-     * Delete a follower from the timedFollowers field of the tier system associated with ownerId
+     * Delete a follower from the overrideFollowers field of the tier system associated with ownerId
      * 
      * @param {string} ownerId - The id of the owner of the tier system 
      * @param {string} followerId - The id of the follower to be added 
