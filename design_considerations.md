@@ -31,3 +31,10 @@
         - concept specific .js (fields.XXX should match input ids in index.html)
         - add form handlers to index.js 
     - add `<script scr="XXX.js"></script>` on top & add relevant form fields to index.html 
+
+## additional middleware
+- check for duplicates (follows, category name & user, tier-owner)
+- check for self-follows
+- check existing follow for tier 
+
++ implement add timedFollower endpoint?
